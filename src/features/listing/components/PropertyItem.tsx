@@ -61,7 +61,7 @@ const PropertyItem: React.FC<PropertyItemProps> = (props) => {
                     }
                 </div>
 
-                <SwipeableViews axis="x" index={activeThumbnail}
+                <SwipeableViews className="rounded-lg" axis="x" index={activeThumbnail}
                 >
                     {
                         FakeFacilitiesThumbnail.map((image, index) => (

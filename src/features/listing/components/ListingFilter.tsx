@@ -171,7 +171,7 @@ const ListingFilter: React.FC<ListingFilterProps> = () => {
                         <span>Submit Filter</span> <AiFillFilter size={20} color='white' />
                     </Button>
 
-                    <Button btnType='default' size='sm' className='flex gap-3 items-center justify-center ' buttonAttributes={{
+                    <Button btnType='default' size='sm' className='md:hidden flex gap-3 items-center justify-center ' buttonAttributes={{
                         onClick: () => {
                             setFilterVisible(false)
                         }
