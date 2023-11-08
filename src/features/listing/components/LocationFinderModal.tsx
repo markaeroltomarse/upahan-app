@@ -18,7 +18,7 @@ const LocationFinderModal: React.FC<LocationFinderModalProps> = (props) => {
             <div
                 onLoad={(e) => e.currentTarget.focus()}
                 tabIndex={0}
-                className="w-full overflow-hidden flex items-center justify-center md:aspect-auto md:h-[30vh] h-[90vh] rounded-md mb-[1rem] "
+                className="w-full overflow-hidden flex items-center justify-center md:aspect-auto md:h-[30vh] h-[75vh] rounded-md mb-[1rem] "
             >
                 {center && <>
                     <GoogleMapComponent
