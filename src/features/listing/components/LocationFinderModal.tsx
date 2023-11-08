@@ -14,8 +14,12 @@ const LocationFinderModal: React.FC<LocationFinderModalProps> = (props) => {
     const { center, isOpen, onSelectLocation, onClose } = props;
     const [selectedLocation, setSelectedLocation] = useState<null | google.maps.LatLng | google.maps.LatLngLiteral>(null)
     return <>
-        <Modal isOpen={isOpen} onClose={onClose} cardClass="md:w-[30vw] w-[90vw] p-[3rem]">
-            <div className="w-full overflow-hidden flex items-center justify-center aspect-auto h-[30vh] rounded-md mb-[1rem]">
+        <Modal isOpen={isOpen} onClose={onClose} cardClass="md:w-[30vw] md:w-[90vw] w-full md:p-[3rem]">
+            <div
+                onLoad={(e) => e.currentTarget.focus()}
+                tabIndex={0}
+                className="w-full overflow-hidden flex items-center justify-center md:aspect-auto md:h-[30vh] h-[90vh] rounded-md mb-[1rem] "
+            >
                 {center && <>
                     <GoogleMapComponent
                         center={{
