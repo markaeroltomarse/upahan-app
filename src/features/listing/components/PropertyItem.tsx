@@ -1,4 +1,6 @@
 import Button from "@/common/components/inputs/Button";
+import useMediaQuery from "@/common/hooks/media-query.hook";
+import { getAnimationDelay } from "@/common/utils/google-map-api.util";
 import { FakeFacilitiesThumbnail, IFacilitateForRent } from "@/data/mocks/facilitate";
 import Image from "next/image";
 import { useState } from "react";
@@ -12,7 +14,7 @@ export interface PropertyItemProps {
 
 const PropertyItem: React.FC<PropertyItemProps> = (props) => {
     const { item, lazyLoading } = props;
-
+    const isMobile = useMediaQuery('(max-width:640px)');
     const [showCarouselButton, setShowCarouselButton] = useState(false)
     const [activeThumbnail, setActiveThumbnail] = useState(Number(item?.id) - 1 || 0)
 
@@ -39,17 +41,37 @@ const PropertyItem: React.FC<PropertyItemProps> = (props) => {
     }
 
 
-
     return <>
-        <div tabIndex={0} onMouseOver={() => setShowCarouselButton(true)} onMouseOut={() => setShowCarouselButton(false)} data-aos="fade-up" className=" !z-10 flex flex-col gap-3 cursor-pointer">
+        <div
+            tabIndex={0}
+            onMouseOver={() => setShowCarouselButton(true)}
+            onMouseOut={() => setShowCarouselButton(false)}
+            data-aos="fade-up"
+            data-aos-delay={getAnimationDelay(Number(item?.id), isMobile ? 2 : 4)}
+            className=" !z-10 flex flex-col gap-3 cursor-pointer"
+        >
             <div className="relative aspect-square">
                 {
                     showCarouselButton && <>
-                        <Button buttonAttributes={{ onClick: () => handleThumbnailChange(activeThumbnail - 1) }} btnType="default" size="sm" className="rounded-full !p-1 bg-gradient-to-r from-orange-600 to-orange-500 absolute left-1 top-[45%] z-10">
+                        <Button
+                            buttonAttributes={{
+                                onClick: () => handleThumbnailChange(activeThumbnail - 1)
+                            }}
+                            btnType="default"
+                            size="sm"
+                            className="rounded-full !p-1 bg-gradient-to-r from-orange-600 to-orange-500 absolute left-1 top-[45%] z-10"
+                        >
                             <GrFormPrevious size={20} />
                         </Button>
 
-                        <Button buttonAttributes={{ onClick: () => handleThumbnailChange(activeThumbnail + 1) }} btnType="default" size="sm" className="rounded-full !p-1 bg-gradient-to-r from-orange-600 to-orange-500 absolute right-1 top-[45%] z-10">
+                        <Button
+                            buttonAttributes={{
+                                onClick: () => handleThumbnailChange(activeThumbnail + 1)
+                            }}
+                            btnType="default"
+                            size="sm"
+                            className="rounded-full !p-1 bg-gradient-to-r from-orange-600 to-orange-500 absolute right-1 top-[45%] z-10"
+                        >
                             <GrFormNext size={20} />
                         </Button>
                     </>

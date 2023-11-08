@@ -113,7 +113,9 @@ const AppLayout: React.FC<AppLayoutProps> = (props) => {
   const { children, getLayout } = props;
 
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      easing: 'ease-in-cubic'
+    });
   }, []);
   return (
     <>

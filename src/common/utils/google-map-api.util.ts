@@ -55,3 +55,12 @@ export function getNearbyProperties(
 
   return filteredPlaces;
 }
+
+export const getAnimationDelay = (index: number, MAX: number) => {
+  let currentValue = index;
+  while (currentValue > MAX) {
+    currentValue = currentValue - MAX;
+  }
+
+  return currentValue * 100;
+};
