@@ -1,3 +1,4 @@
+import { getKilometerScopeOfMap } from "@/common/utils/google-map-api.util";
 import { useEffect, useRef, useState } from "react";
 import { IGoogleMapProps } from "..";
 
@@ -10,6 +11,7 @@ const useGoogleMapService = (props: IGoogleMapProps) => {
     onClick,
     isSelecting,
     onSelectedOnMap,
+    onPovKilometerComputed,
     onLoad
   } = props;
 
@@ -53,6 +55,7 @@ const useGoogleMapService = (props: IGoogleMapProps) => {
         lat: newCenter.lat as number,
         lng: newCenter.lng as number,
       });
+      getKilometerScopeOfMap({ bounds: mapRef.current.getBounds(), newCenter })
     }
   };
 
@@ -102,7 +105,6 @@ const useGoogleMapService = (props: IGoogleMapProps) => {
     directions,
     mapCenter,
     mapRef,
-
   }
 };
 

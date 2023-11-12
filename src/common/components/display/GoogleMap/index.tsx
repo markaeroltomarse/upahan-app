@@ -1,13 +1,14 @@
+import useMediaQuery from "@/common/hooks/media-query.hook";
 import { GOOGLE_MAP_STYLERS } from "@/data/constants/google.constant";
-import { FakeFacilitiesThumbnail, IFacilitateForRent } from "@/data/mocks/facilitate";
+import { IFacilitateForRent } from "@/data/mocks/facilitate";
 import {
   DirectionsRenderer,
   GoogleMap,
   InfoWindow,
+  Libraries,
   Marker,
   useJsApiLoader
 } from "@react-google-maps/api";
-import Image from "next/image";
 import React, { useEffect, useMemo } from "react";
 import useGoogleMapService from "./service";
 
@@ -27,11 +28,13 @@ export interface IGoogleMapProps {
   onSelectedOnMap?: (
     data: google.maps.LatLng | google.maps.LatLngLiteral
   ) => void;
+  onPovKilometerComputed?: (km: number) => void,
   onLoad?: () => void
   zoom?: number
 }
 
 const GoogleMapComponent: React.FC<IGoogleMapProps> = (props) => {
+  const isMobile = useMediaQuery('(max-width:640px)');
   const {
     center,
     markers,
@@ -48,14 +51,14 @@ const GoogleMapComponent: React.FC<IGoogleMapProps> = (props) => {
     mapRef
   } = useGoogleMapService(props)
 
-  const GOOGLE_MAP = useMemo(() => {
-    return
-  }, [mapRef, mapCenter, markers, directions, isSelecting, center, containerStyle])
-
+  const libs: Libraries = useMemo(() => {
+    return ['geometry', 'marker', 'maps', 'routes']
+  }, [])
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY || "",
+    libraries: libs
   });
 
   useEffect(() => {
@@ -65,9 +68,7 @@ const GoogleMapComponent: React.FC<IGoogleMapProps> = (props) => {
   }, [isLoaded])
 
   return (
-    isLoaded &&
-
-    <GoogleMap
+    isLoaded && <GoogleMap
       options={{
         styles: GOOGLE_MAP_STYLERS,
       }}
@@ -87,22 +88,11 @@ const GoogleMapComponent: React.FC<IGoogleMapProps> = (props) => {
       {markers?.map((marker, i) => (
         <InfoWindow key={`${marker.title}-${i}`} position={marker.mapData}>
           <div className="flex flex-col gap-1">
-            <Image
-              width={100}
-              height={100}
-              alt=""
-              src={FakeFacilitiesThumbnail[i]}
-              style={{
-                objectFit: "cover",
-                width: "100px",
-                height: "100px",
-              }}
-              className="rounded-md"
-            />
+
             <div>
               <h3>
                 <b className="font-bold">
-                  ₱{marker?.pricePerMonth?.toLocaleString()}
+                  ₱ {marker?.pricePerMonth?.toLocaleString()}
                 </b>
               </h3>
             </div>
@@ -135,6 +125,7 @@ const GoogleMapComponent: React.FC<IGoogleMapProps> = (props) => {
           }}
         />
       )}
+
     </GoogleMap>
   );
 };

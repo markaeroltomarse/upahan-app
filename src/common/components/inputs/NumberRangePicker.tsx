@@ -30,6 +30,7 @@ const NumberRangePicker: React.FC<NumberRangePickerProps> = (props) => {
                     value: value?.[0],
                     type: 'number',
                     className: "text-sm text-[#d35400]",
+                    min: 0,
                 }}
             />
             <Input
@@ -43,6 +44,7 @@ const NumberRangePicker: React.FC<NumberRangePickerProps> = (props) => {
                     value: value?.[1],
                     type: 'number',
                     className: "text-sm text-[#d35400]",
+                    min: 0,
                 }}
             />
         </div>

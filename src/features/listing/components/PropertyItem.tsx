@@ -21,6 +21,8 @@ const PropertyItem: React.FC<PropertyItemProps> = (props) => {
     const handleThumbnailChange = (newValue: number) => {
         if (newValue >= 0 && newValue <= FakeFacilitiesThumbnail.length - 1) {
             setActiveThumbnail(newValue)
+        } else {
+            setActiveThumbnail(0)
         }
     }
 
@@ -77,7 +79,7 @@ const PropertyItem: React.FC<PropertyItemProps> = (props) => {
                     </>
                 }
 
-                <div className="z-10 hidden md:flex transition-all absolute bottom-0 left-0 justify-center py-3 gap-1 w-full">
+                <div className="overflow-x-hidden mx-auto w-[50%] z-10 hidden md:flex transition-all absolute bottom-0 left-[25%] justify-center py-3 gap-1">
                     {
                         FakeFacilitiesThumbnail.map((_, index) => <span key={item?.coordinateDetails + '-dots-' + index} className={`rounded-full p-[3px] bg-white ${activeThumbnail === index && 'scale-150 bg-gradient-to-r from-orange-600 to-orange-500'}`}></span>)
                     }

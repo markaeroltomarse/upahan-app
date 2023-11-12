@@ -64,3 +64,22 @@ export const getAnimationDelay = (index: number, MAX: number) => {
 
   return currentValue * 100;
 };
+
+export const getKilometerScopeOfMap = ({ bounds, newCenter}: any) => {
+  // Calculate the KM based on the map zoom and new center position
+  // const bounds = mapRef.current.getBounds();
+  if (bounds) {
+    const ne = bounds.getNorthEast();
+    const sw = bounds.getSouthWest();
+
+    const centerPosition = newCenter;
+    const radius = window.google.maps.geometry.spherical.computeDistanceBetween(centerPosition, ne);
+
+    // Convert the radius from meters to kilometers
+    const radiusInKilometers = radius / 1000;
+
+    console.log(`Map scope in kilometers: ${radiusInKilometers.toFixed(2)}`);
+
+    return radiusInKilometers.toFixed(2)
+  }
+}

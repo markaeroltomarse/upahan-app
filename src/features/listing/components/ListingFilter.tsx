@@ -2,6 +2,7 @@ import Button from '@/common/components/inputs/Button';
 import Input from '@/common/components/inputs/Input';
 import useAppDispatch from '@/common/hooks/app-dispatch.hook';
 import useAppSelector from '@/common/hooks/app-selector.hook';
+import useCurrentLocationService from '@/common/hooks/location.hook';
 import useMediaQuery from '@/common/hooks/media-query.hook';
 import { fetchLatLngInfos } from '@/common/utils/google-map-api.util';
 import { IFindPropertyFilter } from '@/data/types';
@@ -36,38 +37,8 @@ const ListingFilter: React.FC<ListingFilterProps> = () => {
         }
     })
 
-    const getMyLocation = () => {
-        // Get the current location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const coord = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    }
-                    const load = async () => {
-                        const result = await Promise.all(fetchLatLngInfos([coord]))
-                        setFilter((filter: any) => {
-                            return {
-                                ...filter,
-                                location: {
-                                    ...filter.location,
-                                    ...coord,
-                                    name: result[0] as string,
-                                }
-                            }
-                        });
-                    }
-                    load()
-                },
-                (error) => {
-                    console.error("Error getting location:", error);
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by your browser.");
-        }
-    }
+    const { getMyLocation } = useCurrentLocationService()
+
 
     const handleGetCoordinateDetails = (data: any) => {
         setFilter({
@@ -82,7 +53,19 @@ const ListingFilter: React.FC<ListingFilterProps> = () => {
 
     useEffect(() => {
         if (filter?.location?.lat === 0 && filter?.location?.lat === 0 && !filter?.location?.name) {
-            getMyLocation()
+            getMyLocation(async (coords) => {
+                const result = await Promise.all(fetchLatLngInfos([coords]))
+                setFilter((filter: any) => {
+                    return {
+                        ...filter,
+                        location: {
+                            ...filter.location,
+                            ...coords,
+                            name: result[0] as string,
+                        }
+                    }
+                });
+            })
         } else if (!filter?.location?.name) {
             const load = async () => {
                 const result = await Promise.all(fetchLatLngInfos([filter?.location]))
@@ -109,7 +92,15 @@ const ListingFilter: React.FC<ListingFilterProps> = () => {
     }, [filter?.location]);
 
     return <>
-        <LocationFinderModal onSelectLocation={handleGetCoordinateDetails} center={filter?.location as any} onClose={() => setIsFindingLocation(false)} isOpen={isSetFindingLocation} />
+        <LocationFinderModal
+            isOpen={isSetFindingLocation}
+            onSelectLocation={handleGetCoordinateDetails}
+            center={{
+                lat: filter?.location.lat,
+                lng: filter?.location.lng
+            }}
+            onClose={() => setIsFindingLocation(false)}
+        />
         <Button buttonAttributes={{
             onClick: () => {
                 setFilterVisible(!filterVisible)
