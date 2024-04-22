@@ -1,6 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Getting Started (Work In progress)
+
+# The goal of this project is to build something similar to Airbnb, but incorporating some unique elements from traditional Filipino renting business systems.
+
+![alt text](https://upahan-app.vercel.app/images/listing.png)
 
 First, run the development server:
 
