@@ -1,5 +1,5 @@
 import Input from "@/common/components/inputs/Input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TbCurrencyPeso } from "react-icons/tb";
 
 export interface NumberRangePickerProps {
@@ -11,9 +11,6 @@ const NumberRangePicker: React.FC<NumberRangePickerProps> = (props) => {
     const { value, onChange } = props;
     const [valueHandler, setValueHandler] = useState([0, 0])
 
-    useEffect(() => {
-
-    }, [])
     return <div className="flex flex-col">
         <small className="opacity-80">Rent Bill</small>
         <div className="flex gap-3">
@@ -27,10 +24,11 @@ const NumberRangePicker: React.FC<NumberRangePickerProps> = (props) => {
                         onChange?.([+e.currentTarget.value, valueHandler[1]])
                     },
                     placeholder: 'Min',
-                    value: value?.[0],
+                    value: valueHandler[0] || 0,
                     type: 'number',
-                    className: "text-sm text-[#d35400]",
+                    className: "text-sm text-[#d35400] w-full",
                     min: 0,
+                    max: valueHandler[1]
                 }}
             />
             <Input
@@ -41,9 +39,9 @@ const NumberRangePicker: React.FC<NumberRangePickerProps> = (props) => {
                         onChange?.([+e.currentTarget.value, valueHandler[1]])
                     },
                     placeholder: 'Max',
-                    value: value?.[1],
+                    value: valueHandler[1] || 0,
                     type: 'number',
-                    className: "text-sm text-[#d35400]",
+                    className: "text-sm text-[#d35400] w-full",
                     min: 0,
                 }}
             />

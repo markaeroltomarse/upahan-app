@@ -28,11 +28,11 @@ const ListingPropertyResult: React.FC<ListingPropertyResultProps> = () => {
         })
     }, [properties])
 
-    return <div className={`flex md:justify-end justify-center ${isMobile && isMapMode && ''}`}>
+    return <div className={`flex md:justify-end justify-center  ${isMobile && isMapMode && ''}`}>
         <div className={`md:w-[78%] w-[85%] pl-[1.5rem] py-[3rem] ${isMobile && isMapMode && '!p-0'}`}>
             {
                 isMapMode ? <>
-                    <div className="relative md:rounded-lg md:aspect-square overflow-hidden flex justify-center items-center h-[80vh]">
+                    <div className="relative md:rounded-lg  md:aspect-square overflow-hidden flex justify-center items-center h-[80vh]">
                         <GoogleMapComponent
                             zoom={7}
                             center={properties[0]}
@@ -40,7 +40,7 @@ const ListingPropertyResult: React.FC<ListingPropertyResultProps> = () => {
                         />
                     </div>
                 </> : <>
-                    <div className="md:overflow-x-visible overflow-hidden grid md:grid-cols-4 grid-cols-1 gap-5">
+                    <div className="md:overflow-x-visible overflow-hidden grid md:grid-cols-4 grid-cols-1 gap-5 ">
                         {
                             propertyMapped
                         }

@@ -18,7 +18,7 @@ const LocationFinderModal: React.FC<LocationFinderModalProps> = (props) => {
             <div
                 onLoad={(e) => e.currentTarget.focus()}
                 tabIndex={0}
-                className="w-full overflow-hidden flex items-center justify-center md:aspect-auto md:h-[30vh] h-[75vh] rounded-md mb-[1rem] "
+                className="w-full overflow-hidden flex items-center justify-center md:aspect-auto  h-[75vh] rounded-md mb-[1rem] "
             >
                 {center && <>
                     <GoogleMapComponent
@@ -35,12 +35,12 @@ const LocationFinderModal: React.FC<LocationFinderModalProps> = (props) => {
                 </>}
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:justify-center">
                 <Button buttonAttributes={{
                     onClick: () => {
                         onSelectLocation?.(selectedLocation)
                     }
-                }} btnType='default' className='!bg-[#d35400] w-full flex gap-3 justify-center items-center text-white'>
+                }} btnType='default' className='!bg-[#d35400] w-full flex gap-3 justify-center items-center text-white md:max-w-[35vw]'>
                     <span>Select this location </span>
                     <TbLocationSearch color='white' size={25} />
                 </Button>

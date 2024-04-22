@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BsHouseCheckFill } from 'react-icons/bs';
+import { FaBed } from "react-icons/fa";
 import Button from "../inputs/Button";
 export interface GuestNavbarProps {
 
@@ -21,8 +22,8 @@ const GuestNavbar: React.FC<GuestNavbarProps> = () => {
             path: '/'
         },
     ])
-    return <nav className="md:px-[15%] font-Jost fixed top-0 left-0 w-full z-30 bg-white  border-b-2 border-[#e67e22] shadow-sm">
-        <div className="container flex justify-between py-[1.5rem] px-[1.5rem] md:px-0 items-center">
+    return <nav className="md:px-[15%] font-Jost fixed top-0 left-0 w-full z-30 bg-white  border-b-2 border-[#e67e22] shadow-md">
+        <div className="container flex justify-between py-[1.5rem] px-[1.5rem] md:px-0 items-center ">
             <div className="flex items-center gap-1 text-[2rem]">
                 <BsHouseCheckFill size={30} color="#e67e22" />
                 <label className="font-Thunder mt-1">
@@ -39,6 +40,20 @@ const GuestNavbar: React.FC<GuestNavbarProps> = () => {
                     </Button>
                 </Link>
             </div>
+        </div>
+
+        <div className="py-3 border-t-2 border-[#e67e22] flex gap-3">
+            <Button iconRight={<FaBed size={22} />} btnType={"default"} className="bg-[#e67e22] text-white border-[#fdc18c] ">
+                Space
+            </Button>
+
+            <Button iconRight={<FaBed size={22} />} btnType={"default"} className="bg-[#e67e22] text-white border-[#fdc18c]">
+                Bedroom
+            </Button>
+
+            <Button buttonAttributes={{ disabled: true }} btnType={"default"} className="bg-[#e67e22] text-white border-[#fdc18c]">
+                Soon
+            </Button>
         </div>
     </nav>;
 };

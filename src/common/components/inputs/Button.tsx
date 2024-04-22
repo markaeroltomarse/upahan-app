@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     const sizeClasses = size === 'xs' ? 'text-xs' : size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-base';
 
     return (
-        <button {...buttonAttributes} className={`rounded ${buttonClasses} ${sizeClasses} ${className} ${isLoading && 'opacity-50'}`} {...restProps}>
+        <button {...buttonAttributes} className={`rounded ${buttonClasses} ${sizeClasses} ${className} ${isLoading && 'opacity-50'} ${iconRight && 'flex gap-3 items-center '} ${buttonAttributes?.disabled && 'opacity-50'}`} {...restProps}>
             {iconRight && <span className="ml-2">{iconRight}</span>}
             {isLoading ? (
                 <Loading color='white' size={25} />

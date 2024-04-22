@@ -18,7 +18,7 @@ const GuestView: React.FC<GuestViewProps> = (props) => {
 
     return <>
         <GuestNavbar />
-        <div className="md:px-[15%] py-[5rem] font-Jost">
+        <div className="md:px-[15%] py-[10rem] font-Jost">
             <div className=" container" >
                 {children}
             </div>

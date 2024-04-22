@@ -1,4 +1,5 @@
 import GuestView from "@/common/components/views/guest.view";
+import useAppSelector from "@/common/hooks/app-selector.hook";
 import { NextPageWithLayout } from "@/data/types/next-page-with-layout.types";
 
 export interface PropertyDetailsProps {
@@ -6,9 +7,10 @@ export interface PropertyDetailsProps {
 }
 
 const PropertyDetails: NextPageWithLayout<PropertyDetailsProps> = () => {
+    const properties = useAppSelector(store => store.user.properties)
     return (
         <>
-
+            {JSON.stringify(properties[0])}
         </>
     );
 };
